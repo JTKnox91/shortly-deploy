@@ -3,6 +3,10 @@ module.exports = function(grunt) {
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
     concat: {
+      dist: {
+        src: ['public/lib/*.js', 'public/client/*.js'],
+        dest: 'public/dist/application.js',
+      }
     },
 
     mochaTest: {
@@ -25,7 +29,7 @@ module.exports = function(grunt) {
         mangle: false
       },
       build: {
-        src: 'public/**/*.js',
+        src: 'public/dist/application.js',
         dest: 'public/dist/application.js' 
       }
     },
@@ -98,7 +102,7 @@ module.exports = function(grunt) {
     grunt.task.run([ 'watch' ]);
   });
 
-  grunt.registerTask('server-prod', 
+  grunt.registerTask('server-prod',
     ['shell']
   );
 
@@ -111,7 +115,7 @@ module.exports = function(grunt) {
   ]);
 
   grunt.registerTask('build',
-    ['uglify', 'cssmin']
+    ['concat',/*'uglify',*/ 'cssmin']
   );
 
   grunt.registerTask('upload', function(n) {
