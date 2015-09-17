@@ -21,14 +21,13 @@ module.exports = function(grunt) {
     },
 
     uglify: {
-     build: {
-       options: {
-         mangle: false
-       },
-     },
-     files: {
-      'public/dist/application.js': ['public/**/*.js']
-     } 
+      options: {
+        mangle: false
+      },
+      build: {
+        src: 'public/**/*.js',
+        dest: 'public/dist/application.js' 
+      }
     },
 
     jshint: {
@@ -46,7 +45,7 @@ module.exports = function(grunt) {
     },
 
     cssmin: {
-      build: {
+      target: {
         files: {
           'public/dist/application.css': ['public/**/*.css']
         }
@@ -123,9 +122,9 @@ module.exports = function(grunt) {
     }
   });
 
-  grunt.registerTask('deploy',
-    ['build', 'test', 'upload']
-  );
+  grunt.registerTask('deploy', function(n) {
+    grunt.task.run(['build', 'test', 'upload']);
+  });
 
 
 };
